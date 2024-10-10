@@ -3,8 +3,8 @@ Contributors: stiofansisland, paoltaia, ayecode, Ismiaini, picocodes
 Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 4.9
-Tested up to: 6.6
-Stable tag: 2.8.15
+Tested up to: 6.7
+Stable tag: 2.8.16
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,10 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.16 - 2024-10-10 =
+* Update FlatPickr JS library to v4.6.13 - CHANGED
+* Recurring item period dropdown is not responsive with BS5 - FIXED
 
 = 2.8.15 - 2024-10-03 =
 * Add maxlength validation to CCV input - CHANGED
