@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 4.9
 Tested up to: 6.7
-Stable tag: 2.8.16
+Stable tag: 2.8.17
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,11 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.17 - 2024-11-12 =
+* Renewal invoice shows incorrect total when tax & discount applied to invoice - FIXED
+* Discount code usages don't increase - FIXED
+* Composer packages updated - UPDATED
 
 = 2.8.16 - 2024-10-10 =
 * Update FlatPickr JS library to v4.6.13 - CHANGED
