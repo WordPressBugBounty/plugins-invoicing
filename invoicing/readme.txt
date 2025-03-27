@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 4.9
 Tested up to: 6.7
-Stable tag: 2.8.23
+Stable tag: 2.8.24
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,16 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.24 - 2024-03-27 =
+* Payment form file upload not displaying selected files - FIXED
+* Can't override address fields template - FIXED
+* Show gateway name with transaction link in backend invoices list - ADDED
+* Added data retention and anonymization system with configurable settings, anonymization process, automated cleanup, and enhanced GDPR compliance - ADDED
+* Added PayPal subscription cancellation - ADDED
+* Fixed PayPal refunds and subscription cancellations not being processed - FIXED
+* Option added to disable subscription support for Bank Transfer gateway - ADDED
+* PHP warnings on setup wizard page - FIXED
 
 = 2.8.23 - 2024-01-30 =
 * Allow to export payment form custom fields data in export invoices - ADDED
