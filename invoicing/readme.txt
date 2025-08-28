@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 5.0
 Tested up to: 6.8
-Stable tag: 2.8.31
+Stable tag: 2.8.33
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -143,6 +143,10 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.33 - 2025-08-28 =
+* Added tool to add dynamic database strings for translations - ADDED
+* Merge AUI 0.2.41 & SD 1.2.26 - CHANGED
 
 = 2.8.31 - 2025-08-14 =
 * Subscription status not updating when invoice status changes - FIXED
