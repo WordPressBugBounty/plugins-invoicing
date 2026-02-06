@@ -3,8 +3,8 @@ Contributors: stiofansisland, paoltaia, ayecode, Ismiaini, picocodes
 Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 2.8.35
+Tested up to: 6.9
+Stable tag: 2.8.42
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,8 +86,6 @@ GetPaid can be used as a payment system with a checkout page by any plugin.
 * [Simple Quantity Discounts](https://wpgetpaid.com/downloads/simple-quantity-discounts/) - Set discounts for Bulk orders
 * [Paid Trials](https://wpgetpaid.com/downloads/paid-trials/) - Offer Paid Trials.
 
-
-
 New Payment Gateways and Add-ons will be created regularly. If there is a Payment Gateway that you need urgently or a feature missing that you think we must add, [get in touch with us](https://wpgetpaid.com/contact-form/) and we will consider it.
 
 = Support =
@@ -143,6 +141,34 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.42 - 2026-02-05 =
+* Subscriptions search not returning results - FIXED
+* Show recurring amount and period on parent invoice - CHANGED
+
+= 2.8.41 - 2026-01-29 =
+* Render subscriptions header and footer content via template - CHANGED
+
+= 2.8.40 - 2026-01-22 =
+* Added bulk actions for admin subscriptions list table - ADDED
+* Fixed missing translation strings for dynamic tax labels and VAT validation messages - FIXED
+* Some email and gateway description text are not translatable - FIXED
+* Merge AUI 0.2.43, SD 1.2.31 & AyeCode Connect Helper 1.0.5 - CHANGED
+
+= 2.8.39 - 2025-12-18 =
+* Hook added to filter renewal payment invoice data - ADDED
+
+= 2.8.38 - 2025-12-11 =
+* Check for Soap class before validating VAT number with VIES - FIXED
+
+= 2.8.37 - 2025-12-04 =
+* WordPress 6.9 compatibility check - COMPATIBILITY
+
+= 2.8.36 - 2025-11-27 =
+* VAT validation bypass allowing fake VAT numbers to zero-rate tax - FIXED
+* Dynamic tax field labels based on country-specific tax configuration - ADDED
+* Changes for Stripe renewal payment fail notification email issue - FIXED
+* Conflicts with Rank Math SEO on Leads page - FIXED
 
 = 2.8.35 - 2025-09-25 =
 * Minor BS5 compatibility changes - CHANGED

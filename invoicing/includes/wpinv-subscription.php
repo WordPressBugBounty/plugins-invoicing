@@ -586,7 +586,7 @@ class WPInv_Subscription extends GetPaid_Data {
 	 * Set the initial amount for the subscription.
 	 *
 	 * @since 1.0.19
-	 * @param  float $value The initial subcription amount.
+	 * @param  float $value The initial subscription amount.
 	 */
 	public function set_initial_amount( $value ) {
 		$this->set_prop( 'initial_amount', wpinv_sanitize_amount( $value ) );
@@ -862,20 +862,21 @@ class WPInv_Subscription extends GetPaid_Data {
         return (int) $times_billed;
     }
 
-    /**
-     * Records a new payment on the subscription
-     *
-     * @since  2.4
-     * @param  array $args Array of values for the payment, including amount and transaction ID
+	/**
+	 * Records a new payment on the subscription
+	 *
+	 * @since  2.4
+	 * @param  array $args Array of values for the payment, including amount and transaction ID
 	 * @param  WPInv_Invoice $invoice If adding an existing invoice.
-     * @return bool
-     */
-    public function add_payment( $args = array(), $invoice = false ) {
-
+	 * @return bool
+	 */
+	public function add_payment( $args = array(), $invoice = false ) {
 		// Process each payment once.
-        if ( ! empty( $args['transaction_id'] ) && $this->payment_exists( $args['transaction_id'] ) ) {
-            return false;
-        }
+		if ( ! empty( $args['transaction_id'] ) && $this->payment_exists( $args['transaction_id'] ) ) {
+			return false;
+		}
+
+		$orig_invoice = $invoice;
 
 		// Are we creating a new invoice?
 		if ( empty( $invoice ) ) {
@@ -892,7 +893,11 @@ class WPInv_Subscription extends GetPaid_Data {
 		}
 
 		// Set the completed date.
-		$invoice->set_completed_date( current_time( 'mysql' ) );
+		if ( ! empty( $args['completed_date'] ) ) {
+			$invoice->set_completed_date( $args['completed_date'] );
+		} else {
+			$invoice->set_completed_date( current_time( 'mysql' ) );
+		}
 
 		// And the gateway.
 		if ( ! empty( $args['gateway'] ) ) {
@@ -900,6 +905,18 @@ class WPInv_Subscription extends GetPaid_Data {
 		}
 
 		$invoice->set_status( 'wpi-renewal' );
+
+		/**
+		 * Filter invoice object to create renewal payment.
+		 *
+		 * @since 2.8.39
+		 *
+		 * @param object $invoice      Invoice object.
+		 * @param array  $args         Invoice args.
+		 * @param object $orig_invoice Main invoice object.
+		 */
+		$invoice = apply_filters( 'getpaid_subscription_add_payment_invoice', $invoice, $args, $orig_invoice );
+
 		$invoice->save();
 
 		if ( ! $invoice->exists() ) {
@@ -909,15 +926,16 @@ class WPInv_Subscription extends GetPaid_Data {
 		return $this->after_add_payment( $invoice );
 	}
 
-    public function after_add_payment( $invoice ) {
+	public function after_add_payment( $invoice ) {
+		$this->get_parent_payment()->add_note( wp_sprintf( __( 'Renewal invoice %s created.', 'invoicing' ), $invoice->get_number() ), false, false, true );
 
 		do_action( 'getpaid_after_create_subscription_renewal_invoice', $invoice, $this );
 		do_action( 'wpinv_recurring_add_subscription_payment', $invoice, $this );
-        do_action( 'wpinv_recurring_record_payment', $invoice->get_id(), $this->get_parent_invoice_id(), $invoice->get_recurring_total(), $invoice->get_transaction_id() );
+		do_action( 'wpinv_recurring_record_payment', $invoice->get_id(), $this->get_parent_invoice_id(), $invoice->get_recurring_total(), $invoice->get_transaction_id() );
 
-        update_post_meta( $invoice->get_id(), '_wpinv_subscription_id', $this->id );
+		update_post_meta( $invoice->get_id(), '_wpinv_subscription_id', $this->id );
 
-        return $invoice->get_id();
+		return $invoice->get_id();
 	}
 
 	/**
@@ -1238,36 +1256,31 @@ class WPInv_Subscription extends GetPaid_Data {
 
 		if ( $status_transition ) {
 			try {
+				if ( ! empty( $status_transition['from'] ) ) {
+					/* translators: 1: old subscription status 2: new subscription status */
+					$transition_note = sprintf( __( 'Subscription status changed from %1$s to %2$s.', 'invoicing' ), getpaid_get_subscription_status_label( $status_transition['from'] ), getpaid_get_subscription_status_label( $status_transition['to'] ) );
+				} else {
+					/* translators: %s: new invoice status */
+					$transition_note = sprintf( __( 'Subscription status set to %s.', 'invoicing' ), getpaid_get_subscription_status_label( $status_transition['to'] ) );
+				}
+
+				// Note the transition occurred.
+				$this->get_parent_payment()->add_note( $transition_note, false, false, true );
 
 				// Fire a hook for the status change.
 				do_action( 'wpinv_subscription_' . $status_transition['to'], $this->get_id(), $this, $status_transition );
 				do_action( 'getpaid_subscription_' . $status_transition['to'], $this, $status_transition );
 
 				if ( ! empty( $status_transition['from'] ) ) {
-
-					/* translators: 1: old subscription status 2: new subscription status */
-					$transition_note = sprintf( __( 'Subscription status changed from %1$s to %2$s.', 'invoicing' ), getpaid_get_subscription_status_label( $status_transition['from'] ), getpaid_get_subscription_status_label( $status_transition['to'] ) );
-
-					// Note the transition occurred.
-					$this->get_parent_payment()->add_note( $transition_note, false, false, true );
-
 					// Fire another hook.
 					do_action( 'getpaid_subscription_status_' . $status_transition['from'] . '_to_' . $status_transition['to'], $this->get_id(), $this );
 					do_action( 'getpaid_subscription_status_changed', $this, $status_transition['from'], $status_transition['to'] );
-
-				} else {
-					/* translators: %s: new invoice status */
-					$transition_note = sprintf( __( 'Subscription status set to %s.', 'invoicing' ), getpaid_get_subscription_status_label( $status_transition['to'] ) );
-
-					// Note the transition occurred.
-					$this->get_parent_payment()->add_note( $transition_note, false, false, true );
 
 				}
 			} catch ( Exception $e ) {
 				$this->get_parent_payment()->add_note( __( 'Error during subscription status transition.', 'invoicing' ) . ' ' . $e->getMessage() );
 			}
 		}
-
 	}
 
 	/**
