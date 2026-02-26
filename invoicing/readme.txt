@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 2.8.43
+Stable tag: 2.8.44
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,9 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.44 - 2026-02-26 =
+* Option added to use native site template for direct payment page - ADDED
 
 = 2.8.43 - 2026-02-19 =
 * Decimal Separator as comma don't allows to enter prices with comma - FIXED
