@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 2.8.54
+Stable tag: 2.8.55
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,14 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.55 - 2026-07-08 =
+* Verify nonce and invoice ownership before processing checkout - SECURITY
+* Validate payment form uploads against allowed file types - SECURITY
+* Restrict Test Gateway to admins by default - SECURITY
+* Admin reminder to disable Test Gateway once live - ADDED
+* Country and State/Province fields on payment forms now use searchable select2 dropdowns - CHANGED
+* Hold unverifiable Worldpay payment notifications for manual review - SECURITY
 
 = 2.8.54 - 2026-06-30 =
 * Verify authenticity of Worldpay payment notifications before marking invoices as paid - SECURITY
