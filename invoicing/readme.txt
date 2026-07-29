@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 2.8.56
+Stable tag: 2.8.57
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,9 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.57 - 2026-07-29 =
+* Local File Inclusion via the payment form element type - SECURITY
 
 = 2.8.56 - 2026-07-22 =
 * Authorize.NET subscriptions with a free trial or zero-total first payment left the invoice stuck as pending - FIXED
