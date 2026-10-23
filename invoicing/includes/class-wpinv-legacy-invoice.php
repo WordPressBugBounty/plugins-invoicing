@@ -262,9 +262,16 @@ final class WPInv_Legacy_Invoice {
      */
     public $parent_invoice = 0;
 
+   /**
+     * Post slug.
+     *
+     * @var string
+     */
+    public $post_name = '';
+
     public function __construct( $invoice_id = false ) {
         if ( empty( $invoice_id ) ) {
-            return false;
+            return;
         }
 
         $this->setup_invoice( $invoice_id );
