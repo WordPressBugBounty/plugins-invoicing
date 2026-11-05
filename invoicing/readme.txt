@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 2.8.64
+Stable tag: 2.8.65
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -145,6 +145,18 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.65 - 2026-11-05 =
+* Quantities chosen on payment forms and buy buttons must be whole numbers and respect the item's maximum quantity (the admin invoice editor is unchanged) - FIXED
+* Renewal invoices match the amount charged: renewals copy the renewal terms stored on the first invoice (recurring tax, discount, fees) instead of looking tax rates and discount codes up again; a renewal whose total differs from the amount charged is recorded On Hold (admin emailed, customer not, subscription still extended) - FIXED
+* PayPal: the first payment and the signup terms are checked against the invoice; on a mismatch the invoice is held and the subscription linked but left Pending until the invoice is marked paid - FIXED
+* Reading an invoice total no longer recalculates (and later saves) its taxes; tax is rounded once at checkout, on invoices and per subscription group, and groups keep each item's renewal tax - FIXED
+* One-off fees no longer repeat on renewals, and a discount code that only applied to the first payment is left off renewal invoices - FIXED
+* Subscription renewals use the subscription group's own copy of its items (product, price, quantity), and keep their product after it is retired (a renewal of a draft item used to be a 0 invoice with no items) - FIXED
+* A first invoice without stored tax rows (e.g. imported from another store) still gets its group's renewal tax on renewals - FIXED
+* getpaid_subscription_cancel_button filter to replace or hide the Cancel Subscription button - ADDED
+* Update AUI 0.2.59 - CHANGED
+* Saving non-GetPaid posts triggers PHP deprecation notices from metabox sanitizing - FIXED
 
 = 2.8.64 - 2026-10-28 =
 * Discount code in checkout link is now applied automatically - ADDED
