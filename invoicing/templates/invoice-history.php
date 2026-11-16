@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/invoicing/invoice-history.php.
  *
- * @version 2.8.43
+ * @version 2.8.66
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -48,7 +48,7 @@ wpinv_print_errors();
 									break;
 
 								case 'payment-date':
-									if ( $invoice->needs_payment() ) {
+									if ( $invoice->needs_payment() || $invoice->is_cancelled() ) {
 										echo '&mdash;';
 										} else {
 										echo esc_html( getpaid_format_date_value( $invoice->get_date_completed() ) );
@@ -87,7 +87,7 @@ wpinv_print_errors();
 										unset( $actions['pay'] );
 										}
 
-									if ( $invoice->needs_payment() ) {
+									if ( $invoice->needs_payment() || $invoice->is_cancelled() ) {
 										$actions['delete'] = array(
 											'url'   => getpaid_get_authenticated_action_url( 'delete_invoice', add_query_arg( 'invoice_id', $invoice->get_id() ) ),
 											'name'  => __( 'Delete', 'invoicing' ),

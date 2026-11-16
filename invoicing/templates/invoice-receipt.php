@@ -4,7 +4,7 @@
  *
  * This template can be overridden by copying it to yourtheme/invoicing/invoice-receipt.php.
  *
- * @version 1.0.19
+ * @version 2.8.66
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -34,6 +34,15 @@ if ( $invoice->is_paid() ) {
         array(
             'type'    => 'info',
             'content' => __( 'This invoice was refunded.', 'invoicing' ),
+        )
+    );
+
+} elseif ( $invoice->is_cancelled() ) {
+
+    $alert = aui()->alert(
+        array(
+            'type'    => 'info',
+            'content' => __( 'This invoice was cancelled.', 'invoicing' ),
         )
     );
 
