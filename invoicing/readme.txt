@@ -4,7 +4,7 @@ Donate link: https://www.ko-fi.com/stiofan
 Tags:  payments, invoicing, Paypal, Stripe, payment
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 2.8.66
+Stable tag: 2.8.67
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -145,6 +145,10 @@ Automatic updates should work seamlessly. To avoid unforeseen problems, we alway
 9. Single invoice view page.
 
 == Changelog ==
+
+= 2.8.67 - 2026-11-18 =
+* Abandoned free trial checkout marked as Trialling instead of Pending - FIXED
+* Completed free trial checkout showed subscription as Active instead of Trialling - FIXED
 
 = 2.8.66 - 2026-11-16 =
 * A cancelled invoice can no longer be paid: the Pay Now buttons are removed and the checkout rejects it instead of taking the payment - FIXED
